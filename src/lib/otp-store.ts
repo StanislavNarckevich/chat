@@ -14,8 +14,12 @@ export function generateOtp(): string {
 /**
  * Save OTP for phone with TTL (in seconds)
  */
-export async function saveOtpForPhone(phone: string, otp: string, ttl: number = DEFAULT_TTL_SECONDS) {
-    await redis.set(`${OTP_KEY_PREFIX}${phone}`, otp, "EX", ttl);
+export async function saveOtpForPhone(
+    phone: string,
+    otp: string,
+    ttl: number = DEFAULT_TTL_SECONDS
+) {
+    await redis.set(`${OTP_KEY_PREFIX}${phone}`, otp, { ex: ttl });
 }
 
 /**
@@ -35,20 +39,30 @@ export async function deleteOtpForPhone(phone: string) {
 /**
  * Save last send timestamp for phone with TTL (in seconds)
  */
-export async function saveLastSendTimestamp(phone: string, timestamp: number, ttl: number = DEFAULT_TTL_SECONDS) {
-    await redis.set(`${LAST_SEND_KEY_PREFIX}${phone}`, timestamp.toString(), "EX", ttl);
+export async function saveLastSendTimestamp(
+    phone: string,
+    timestamp: number,
+    ttl: number = DEFAULT_TTL_SECONDS
+) {
+    await redis.set(
+        `${LAST_SEND_KEY_PREFIX}${phone}`,
+        timestamp.toString(),
+        { ex: ttl }
+    );
 }
 
 /**
  * Get last send timestamp for phone
  */
-export async function getLastSendTimestamp(phone: string): Promise<number | null> {
+export async function getLastSendTimestamp(
+    phone: string
+): Promise<number | null> {
     const value = await redis.get(`${LAST_SEND_KEY_PREFIX}${phone}`);
     return value ? Number(value) : null;
 }
 
 /**
- * Delete the OTP after verification
+ * Delete last send timestamp
  */
 export async function deleteLastSendTimestamp(phone: string) {
     await redis.del(`${LAST_SEND_KEY_PREFIX}${phone}`);
