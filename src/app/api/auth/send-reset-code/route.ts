@@ -36,8 +36,9 @@ export async function POST(req: Request) {
         const code = Math.floor(100000 + Math.random() * 900000).toString();
 
         // save code
-        await redis.set(codeKey, code, "EX", CODE_TTL);
-        await redis.set(rateKey, now.toString(), "EX", 60 * 5);
+        await redis.set(codeKey, code, { ex: CODE_TTL });
+
+        await redis.set(rateKey, now.toString(), { ex: 300 });
 
         console.log("RESET CODE:", code); // temporary instead smtp
 
