@@ -3,7 +3,6 @@ import { admin } from "@/lib/firebase-admin";
 import {maskPhone} from "@/lib/save-user-to-firestore";
 
 
-
 export async function POST(req: Request) {
     try {
         const {

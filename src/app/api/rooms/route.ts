@@ -13,7 +13,7 @@ export async function POST(req: Request) {
     try {
         const decoded = await auth.verifyIdToken(authHeader);
         const role = decoded.role as string | undefined;
-
+        console.log(role)
         if (!["admin", "manager"].includes(role || "")) {
             return NextResponse.json({ error: "Forbidden" }, { status: 403 });
         }
