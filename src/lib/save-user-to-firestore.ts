@@ -1,7 +1,7 @@
 import { getUserRole } from "@/lib/auth-utils";
 import { User } from "firebase/auth";
 
-export async function saveUserToFirestore(user: User | null) {
+export async function saveUserToFirestore(user: User | null, notification = "email") {
     if (!user?.uid) return;
 
     try {
@@ -27,7 +27,7 @@ export async function saveUserToFirestore(user: User | null) {
                 position: null,
                 company: null,
                 language: "TR",
-                notification: "email",
+                notification,
             }),
         });
     } catch (error: any) {

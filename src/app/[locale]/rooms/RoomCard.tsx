@@ -11,6 +11,7 @@ type Props = {
     room: any;
     creatorName: string;
     currentUserId?: string;
+    unreadCount: number;
     onArchive: (id: string, status: string) => Promise<void>;
     onDelete: (id: string) => Promise<void>;
     t: (key: string) => string;
@@ -20,6 +21,7 @@ function RoomCardComponent({
                                room,
                                creatorName,
                                currentUserId,
+                               unreadCount,
                                onArchive,
                                onDelete,
                                t,
@@ -31,7 +33,7 @@ function RoomCardComponent({
     const isOwner = role === "manager" && room.created_by === user?.uid;
     const canManage = role === "admin" || isOwner;
 
-    const unreadCount = currentUserId ? room.unreadCount?.[currentUserId] ?? 0 : 0;
+    // const unreadCount = currentUserId ? room.unreadCount?.[currentUserId] ?? 0 : 0;
     const hasUnread = unreadCount > 0;
 
     const openRoom = () => router.push(`/rooms/${room.id}`);
@@ -128,7 +130,7 @@ export const RoomCard = memo(RoomCardComponent, (prev, next) => {
         prevRoom.lastMessage?.author_name === nextRoom.lastMessage?.author_name &&
         prevRoom.lastMessage?.hasFile === nextRoom.lastMessage?.hasFile &&
         (prevRoom.lastMessage?.timestamp?.seconds ?? 0) === (nextRoom.lastMessage?.timestamp?.seconds ?? 0) &&
-        prevRoom.unreadCount?.[prev.currentUserId ?? ""] === nextRoom.unreadCount?.[next.currentUserId ?? ""] &&
+        prev.unreadCount === next.unreadCount &&
         prev.creatorName === next.creatorName
     );
 });

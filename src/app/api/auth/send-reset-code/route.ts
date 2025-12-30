@@ -37,7 +37,6 @@ export async function POST(req: Request) {
 
         // save code
         await redis.set(codeKey, code, { ex: CODE_TTL });
-
         await redis.set(rateKey, now.toString(), { ex: 300 });
 
         console.log("RESET CODE:", code); // temporary instead smtp

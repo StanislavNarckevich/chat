@@ -133,7 +133,7 @@ export function MessageBubble({ message, isOwn, t, roomId }: Props) {
                         `}
                     >
                         {editing ? (
-                            <div className="flex gap-2 items-center">
+                            <div className="flex gap-2 items-center min-w-[300px]">
                                 <Textarea
                                     autoFocus
                                     value={editText}

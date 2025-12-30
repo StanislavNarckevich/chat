@@ -18,7 +18,7 @@ export async function POST(req: Request) {
 
     // create session token
     const token = crypto.randomUUID();
-    await redis.set(sessionKey, token, { ex: 60*15 }); // 15 min
+    await redis.set(sessionKey, token, { ex: 60 * 15 });
 
     return NextResponse.json({
         ok: true,

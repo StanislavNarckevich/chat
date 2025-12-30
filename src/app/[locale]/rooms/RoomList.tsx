@@ -1,13 +1,14 @@
 // app/rooms/RoomList.tsx
 "use client";
 
-import { memo } from "react";
-import { RoomCard } from "./RoomCard";
+import {memo} from "react";
+import {RoomCard} from "./RoomCard";
 
 type Props = {
     rooms: any[];
     creatorNames: Record<string, string>;
     currentUserId?: string;
+    unreadRooms: Record<string, number>
     onArchive: (id: string, status: string) => Promise<void>;
     onDelete: (id: string) => Promise<void>;
     t: (key: string) => string;
@@ -17,6 +18,7 @@ function RoomListComponent({
                                rooms,
                                creatorNames,
                                currentUserId,
+                               unreadRooms,
                                onArchive,
                                onDelete,
                                t,
@@ -32,6 +34,7 @@ function RoomListComponent({
                     key={room.id}
                     room={room}
                     creatorName={creatorNames[room.created_by] || t("unknown")}
+                    unreadCount={unreadRooms[room.id] ?? 0}
                     currentUserId={currentUserId}
                     onArchive={onArchive}
                     onDelete={onDelete}

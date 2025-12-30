@@ -8,7 +8,7 @@ import {useAuthContext} from "@/providers/auth-provider";
 import { signOut } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import {useGlobalLoader} from "@/providers/global-loader-provider";
-import {OnlyPhoneLogin} from "@/components/auth/only-phone-login";
+import {OnlyGoogleLogin} from "@/components/auth/only-google-login";
 
 export default function LoginPage() {
     const searchParams = useSearchParams();
@@ -43,7 +43,7 @@ export default function LoginPage() {
                             exit={{ x: -40, opacity: 0 }}
                             transition={{ duration: 0.3 }}
                         >
-                            <OnlyPhoneLogin setMode={setMode} />
+                            <OnlyGoogleLogin setMode={setMode} />
                         </motion.div>
                     ) : (
                         <motion.div

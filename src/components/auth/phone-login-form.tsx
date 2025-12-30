@@ -93,7 +93,7 @@ export function PhoneLoginForm({ setMode }: { setMode: (m: string) => void }) {
         try {
             setLoading(true);
             const { user } = await verifyOtp(confirmResult, code, "client");
-            await saveUserToFirestore(user);
+            await saveUserToFirestore(user, "sms");
 
             if (inviteId) {
                 const roomId = await applyInvite(user, inviteId);

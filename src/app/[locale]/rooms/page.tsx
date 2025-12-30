@@ -31,7 +31,7 @@ const LOAD_MORE_STEP = 20;
 
 export default function RoomsPage() {
     const t = useTranslations("rooms");
-    const { user, role, loading: authLoading } = useAuthContext();
+    const { user, role, loading: authLoading, unreadRooms  } = useAuthContext();
     const { setGlobalLoading } = useGlobalLoader();
 
     const [allRooms, setAllRooms] = useState<any[]>([]);
@@ -179,6 +179,7 @@ export default function RoomsPage() {
                         rooms={visibleRooms}
                         creatorNames={creatorNamesDict}
                         currentUserId={user?.uid}
+                        unreadRooms={unreadRooms }
                         onArchive={handleArchive}
                         onDelete={handleDelete}
                         t={t}
